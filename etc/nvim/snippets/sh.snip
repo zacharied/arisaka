@@ -1,0 +1,21 @@
+snippet file_dir
+    readonly __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+snippet stderr_to_null
+alias enull
+    2>/dev/null
+
+snippet stdout_to_null
+alias onull 
+    >/dev/null
+
+snippet all_to_null
+alias anull
+    &>/dev/null
+
+snippet getopt
+    ${1:opts}=$(getopt \
+                --options '${2}' \
+                -- "$@")
+    eval set -- "$opts"
+    ${0}
