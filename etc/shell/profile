@@ -1,0 +1,7 @@
+# Main arisaka define.
+export ARISAKA="$HOME/.arisaka"
+
+# Set up remainder of variables.
+source "$ARISAKA/arisaka-env.sh"
+
+# vim: set ft=sh:

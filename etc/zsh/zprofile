@@ -1,0 +1,7 @@
+export ARI_O_SHDEBUG
+[[ -v ARI_O_SHDEBUG ]] && echo "sourcing .zprofile"
+
+[[ -v ARI_O_SHDEBUG ]] && echo "sourcing .profile"
+source "$HOME/.profile"
+
+export ZDOTDIR="$ARISAKA_ETC/zsh"
