@@ -1,0 +1,11 @@
+#compdef etc
+
+_arguments '-l[go to local config directory]:filename:->local'
+case "$state" in
+    local)
+        _path_files -W "$ARISAKA_ETCL"
+        ;;
+    *)
+        _path_files -W "$ARISAKA_ETC"
+        ;;
+esac

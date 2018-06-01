@@ -19,14 +19,27 @@ up() {
 }
 
 etc() {
-    local target="$1"
-
-    if [[ -z "$target" ]]; then
-	cd "$ARI_ETC"
-	return
+    if [[ "$1" == '-l' ]]; then
+        local use_local
+        shift
+    else
+        unset use_local
     fi
 
-    target="$ARI_ETC/$target" 
+    local target="$1"
+
+    if [[ -v use_local ]]; then
+        local base="$ARI_ETCL"
+    else
+        local base="$ARI_ETC"
+    fi
+
+    if [[ -z "$target" ]]; then
+        cd "$base"
+        return
+    fi
+    
+    target="$base/$target"
 
     if [[ -d "$target" ]]; then
         pushd -q "$target"
@@ -36,6 +49,6 @@ etc() {
         popd -q
     else
         echo "$0: invalid file or directory '$target'" >&2
-	return 1
+        return 1
     fi
 }
