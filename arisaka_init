@@ -26,8 +26,8 @@ gen_exports() {
         echo "ARI_${f^^}='${arisaka_path}/${f}'"
 
         # Same thing but with local suffix.
-        echo "ARISAKA_${f^^}L='${arisaka_path}/${f}l'"
-        echo "ARI_${f^^}L='${arisaka_path}/${f}l'"
+        echo "ARISAKA_${f^^}L='${arisaka_path}/local/${f}'"
+        echo "ARI_${f^^}L='${arisaka_path}/local/${f}'"
     done
 }
 
