@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Arisaka setup script.
+
+help() {
+    cat << EOF
+arisaka_setup: verifies arisaka link and outputs environment variables
+
+Usage:
+  arisaka_setup [-h]
+  -h  show this help
+
+Output:
+  output is in the form key-value pairs in the form of KEY=VALUE, separated by
+  newlines.
+EOF
+}
+
+gen_exports() {
+    local -r arisaka_path="$1"
+
+    echo "ARISAKA='$HOME/$arisaka_path'"
+
+    local folders=('bin' 'lib' 'etc')
+    for f in "${folders[@]}"; do
+        echo "ARISAKA_${f^^}='${arisaka_path}/${f}'"
+        echo "ARI_${f^^}='${arisaka_path}/${f}'"
+
+        # Same thing but with local suffix.
+        echo "ARISAKA_${f^^}L='${arisaka_path}/${f}l'"
+        echo "ARI_${f^^}L='${arisaka_path}/${f}l'"
+    done
+}
+
+main() {
+    while getopts ":h" opt; do
+        case "$opt" in
+            h) help >&2
+               return 0
+               ;;
+            \?) 
+                echo "invalid option: -$OPTARG" >&2
+                help >&2
+                return 1
+                ;;
+            :)
+                echo "option -$OPTARG requires an argument" >&2
+                return 1
+                ;;
+        esac
+    done
+
+    if [[ ! -L "$HOME/.arisaka_root" ]]; then
+        echo "~/.arisaka_root is not found or is not a symbolic link; exiting" >&2
+        return 2
+    fi
+
+    local arisaka_path="$(realpath ~/.arisaka_root)"
+
+    if [[ ! -d "$arisaka_path" ]]; then
+        echo "$arisaka_path is not a directory; exiting" >&2
+        return 2
+    fi
+
+    gen_exports "$arisaka_path" || exit $?
+}  
+
+main || exit $?

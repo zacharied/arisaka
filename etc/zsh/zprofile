@@ -1,7 +1,12 @@
 export ARI_O_SHDEBUG
 [[ -v ARI_O_SHDEBUG ]] && echo "sourcing .zprofile"
 
-[[ -v ARI_O_SHDEBUG ]] && echo "sourcing .profile"
-source "$HOME/.profile"
+[[ -v ARI_O_SHDEBUG ]] && echo "sourcing arisaka environment variables"
+while read -r line; do
+    eval "export $line"
+done < <("$HOME/bin/arisaka_init")
 
+# Tell zsh where to find the remainder of its config.
 export ZDOTDIR="$ARISAKA_ETC/zsh"
+
+[[ -v ARI_O_SHDEBUG ]] && echo "done sourcing .zprofile"
