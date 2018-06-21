@@ -18,7 +18,7 @@ EOF
 gen_exports() {
     local -r arisaka_path="$1"
 
-    echo "ARISAKA='$HOME/$arisaka_path'"
+    echo "ARISAKA='$arisaka_path'"
 
     local folders=('bin' 'lib' 'etc')
     for f in "${folders[@]}"; do
@@ -61,7 +61,7 @@ main() {
         return 2
     fi
 
-    gen_exports "$arisaka_path" || exit $?
+    gen_exports "$arisaka_path" || return $?
 }  
 
 main || exit $?
