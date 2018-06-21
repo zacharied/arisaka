@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# alacritty_text_hack: Changes the font size of the alacritty config file based
+# on the monitor in which it is being launched
+# TODO This is absolute shit.
+
+readonly monitor="$(i3-msg -t 'get_workspaces' | jq '.[] | select(.focused==true).output' | cut -d\" -f2)" 
+
+case "$monitor" in
+    eDP1)
+        alacritty
+        ;;
+    DP[0-9])
+        alacritty --config-file "$ARI_ETC/alacritty/alacritty-lowdpi.yml"
+        ;;
+esac

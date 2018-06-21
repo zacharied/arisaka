@@ -1,12 +1,22 @@
-export ARI_O_SHDEBUG
-[[ -v ARI_O_SHDEBUG ]] && echo "sourcing .zprofile"
+alias arilog="$HOME/.arisaka_root/bin/arisaka/arilog"
 
-[[ -v ARI_O_SHDEBUG ]] && echo "sourcing arisaka environment variables"
+export ARILOG_NS='zsh-startup'
+arilog -i "sourcing zprofile"
+
+arilog -i "sourcing arisaka environment variables"
 while read -r line; do
     eval "export $line"
-done < <("$HOME/bin/arisaka_init")
+done < <("$HOME/.arisaka_root/arisaka_init")
+
+arilog -i "setting user base dirs"
+while read -r line; do
+    eval "export $line"
+done < <("$ARISAKA_BIN/shell/user-dirs")
 
 # Tell zsh where to find the remainder of its config.
 export ZDOTDIR="$ARISAKA_ETC/zsh"
 
-[[ -v ARI_O_SHDEBUG ]] && echo "done sourcing .zprofile"
+arilog -i "done sourcing zprofile"
+unset ARILOG_NS
+
+# vim: set ft=zsh:

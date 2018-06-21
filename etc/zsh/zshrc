@@ -6,7 +6,7 @@
 fpath=("$ARI_ETC/zsh/completions" $fpath)
 
 # Use aliases with sudo.
-alias sudo='nocorrect sudo '
+alias sudo='sudo '
 
 source "$ARI_ETC/zsh/env.zsh"
 source "$ARI_ETC/zsh/alias.zsh"
@@ -16,6 +16,13 @@ source "$ARI_ETC/zsh/func.zsh"
 
 # {{{1 Options
 
+HISTFILE=~/.zsh_history
+HISTSIZE=524288
+SAVEHIST=$HISTSIZE
+
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 
@@ -34,31 +41,35 @@ if [[ -d "$LOCAL_ZPLUG" ]]; then
     
     # Sets up the necessary zplug plugins.
     zplug_do() {
-	# Yeet
-	zplug 'zsh-users/zsh-syntax-highlighting'
+        # Yeet
+        zplug 'zsh-users/zsh-syntax-highlighting'
 
-	# Completions
-	zplug 'zsh-users/zsh-completions'
-	zplug 'srijanshetty/zsh-pandoc-completion'
+        # Completions
+        zplug 'zsh-users/zsh-completions'
+        zplug 'srijanshetty/zsh-pandoc-completion'
+        zplug 'plugins/taskwarrior', from:oh-my-zsh
 
-	# Nice stuff
-	zplug 'zsh-users/zsh-history-substring-search'
+        zplug 'plugins/colored-man-pages', from:oh-my-zsh
 
-	# Warp
-	zplug 'mfaerevaag/wd', \
-	    as:command, \
-	    use:'wd.sh', \
-	    hook-load:'wd() { . "$ZPLUG_REPOS/mfaerevaag/wd/wd.sh" }'
+        # Nice stuff
+        zplug 'zsh-users/zsh-history-substring-search'
 
-	# Libraries
-	zplug 'molovo/crash', \
-	    use:'crash', \
-	    lazy:true
+        # Warp
+        zplug 'mfaerevaag/wd', \
+            as:command, \
+            use:'wd.sh', \
+            hook-load:'wd() { . "$ZPLUG_REPOS/mfaerevaag/wd/wd.sh" }'
 
-	zplug load
+        # Libraries
+        zplug 'molovo/crash', \
+            use:'crash', \
+            lazy:true
+
+        zplug load
     }
 
     zplug_do
+    unalias t # TODO More elegant way of undoing aliases created by OMZSH
 
     unset -f zplug_do
 else
@@ -74,7 +85,7 @@ prompt::top_line() {
 }
 
 prompt::dirstack() {
-    printf "$(dirs -p | wc -l)"
+    printf "⩧$(dirs -p | wc -l)"
 }
 
 prompt::vi_mode_badge() {

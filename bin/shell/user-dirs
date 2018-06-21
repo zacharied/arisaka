@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+echo 'MY_BIN="$HOME/bin"'
+echo 'MY_RUN="/run/user/$(id -u)"'
+
+echo 'PATH="$PATH:$MY_BIN"'

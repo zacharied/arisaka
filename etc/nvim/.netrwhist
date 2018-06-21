@@ -1,3 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/zach/.arisaka/.git'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/zach/.arisaka/bin/arisaka'
+let g:netrw_dirhist_2='/home/zach/.arisaka/bin/alacritty'
+let g:netrw_dirhist_3='/home/zach/.config/lpass'
+let g:netrw_dirhist_4='/home/zach/src/ari_utils/.git'
