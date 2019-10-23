@@ -1,5 +1,7 @@
 " {{{1 Opening
 
+let g:python_path = '/usr/bin/python3'
+
 " Reload configuration when saved.
 augroup vimrc#autoreload
     autocmd!

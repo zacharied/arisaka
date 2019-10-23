@@ -22,13 +22,6 @@ set relativenumber
 
 " {{{1 Colorscheme
 
-set termguicolors
-
-let s:term = $TERM
-if s:term != 'linux'
-    colorscheme stellarized_light 
-endif
-
 " {{{1 Command line
 
 " Hide completion messages.

@@ -7,8 +7,6 @@
 set noshowmode
 
 let g:lightline = {
-    \ 'colorscheme': 'stellarized_light',
-    \
     \ 'tabline': {
     \ 'left': [ 
     \           [ 'buffers' ]
@@ -39,7 +37,7 @@ let g:lightline.component_function = {
 
 let g:lightline.active = {
     \ 'left': [ [ 'badge', 'filename' ] ],
-    \ 'right': [ [ ] ]
+    \ 'right': [ ['lineinfo'] ]
 \ }
 
 let g:lightline.inactive = {

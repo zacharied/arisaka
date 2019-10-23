@@ -43,10 +43,14 @@ Plug 'fatih/vim-go'
 " Enhanced C
 Plug 'justinmk/vim-syntax-extra'
 
+" JS and friends
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+
 " {{{1 Completion
 " Core completion engine.
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" let g:deoplete#enable_at_startup = 1
 
 " Snippets.
 Plug 'Shougo/neosnippet.vim'
