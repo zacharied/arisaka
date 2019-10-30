@@ -1,5 +1,12 @@
 " {{{1 Opening
 
+let g:vim_plug_location = expand('~/.local/share/nvim/site/autoload/plug.vim')
+
+if !filereadable(g:vim_plug_location)
+    echom 'Installing vim-plug at "' . g:vim_plug_location . '"'
+    call system('curl -fLo ' . g:vim_plug_location . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+endif
+
 call plug#begin('~/.local/share/vim-plug')
 
 " {{{1 User interface
