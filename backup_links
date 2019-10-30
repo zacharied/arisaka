@@ -1,0 +1,108 @@
+links_file=$ARISAKA/links
+
+show_help() {
+    cat << EOF
+$(basename "$0"): backup and restore links in an Arisaka configuration.
+
+Syntax: $(basename "$0") [OPTIONS] [ACTION] [ACTION OPTIONS]
+
+Actions:
+    backup      Search the home directory for symlinks pointing to Arisaka and record them.
+    restore     Recreate symlinks from a backup file created here.
+
+Options:
+    -h              Show this help.
+
+Backup options:
+    -o OUTPUTFILE   Print link information in OUTPUTFILE.
+
+Restore options:
+    (none)
+EOF
+}
+
+backup_links() {
+    local realpath
+
+    :>| "$links_file"
+
+    # Find all symlinks except those in the Arisaka directory.
+    for link in $(find ~ -path "$ARISAKA" -prune -o -type l -print); do
+        realpath=$(realpath "$link")
+
+        # Ensure link points to an Arisaka file.
+        [[ "$realpath" =~ ^$ARISAKA ]] || continue
+        
+        if [[ "$realpath" =~ *\t* ]]; then
+            echo "Error with file '$ARISAKA/$realpath': arisaka filenames cannot contain tabs" >&2
+            return 1
+        fi
+
+        echo "Found '$link' -> '$realpath'."
+        echo -e "$link\t$realpath" >> "$links_file"
+    done
+}
+
+main_backup() {
+    # Parse action options.
+    while getopts 'o:' OPT; do
+        case "$OPT" in
+            o)
+                links_file="$OPTARG"
+                shift
+                ;;
+        esac
+        shift
+    done
+
+    # Verify we can write to the links file.
+    if ! touch "$links_file" || [[ ! -w "$links_file" ]]; then
+        echo "Unable to open '$links_file' for writing." >&2
+        return 1
+    fi
+
+    echo "Writing links to '$links_file'."
+
+    backup_links || return $?
+}
+
+main_restore() {
+    echo "Not yet implemented." >&2
+    return 1
+}
+
+main() {
+    local action
+
+    # Parse program options.
+    while getopts 'h' OPT; do
+        case "$OPT" in
+            h)
+                show_help
+                return 0
+                ;;
+        esac
+        shift
+    done
+
+    # Parse action.
+    case "$1" in
+        b*)
+            # Backup.
+            shift
+            main_backup "$@" || return $?
+            ;;
+        r*)
+            # Restore.
+            shift
+            main_restore "$@" || return $?
+            ;;
+        *)
+            echo "Invalid mode '$1'." >&2
+            return 1
+    esac
+}
+
+main "$@" || exit $?
+
+# vim: ft=sh
