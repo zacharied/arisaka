@@ -94,6 +94,7 @@ Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " File explorer.
 Plug 'scrooloose/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeFocus'] } 
+Plug 'Shougo/defx.nvim'
 
 " Source code explorer.
 Plug 'majutsushi/tagbar', { 'on': [ 'TagbarOpen' ] }

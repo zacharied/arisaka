@@ -7,6 +7,7 @@
 set noshowmode
 
 let g:lightline = {
+    \ 'colorscheme': 'nord',
     \ 'tabline': {
     \ 'left': [ 
     \           [ 'buffers' ]
