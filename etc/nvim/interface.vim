@@ -22,6 +22,11 @@ set relativenumber
 
 " {{{1 Colorscheme
 
+if has('termguicolors')
+    set termguicolors
+    colorscheme seagrey-dark
+endif
+
 " {{{1 Command line
 
 " Hide completion messages.

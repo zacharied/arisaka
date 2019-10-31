@@ -1,9 +1,9 @@
 " {{{1 Opening
 
+" Download vim-plug if it hasn't been already.
 let g:vim_plug_location = expand('~/.local/share/nvim/site/autoload/plug.vim')
-
 if !filereadable(g:vim_plug_location)
-    echom 'Installing vim-plug at "' . g:vim_plug_location . '"'
+    echom 'Installing vim-plug at "' . g:vim_plug_location . '".'
     call system('curl -fLo ' . g:vim_plug_location . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 endif
 
@@ -56,8 +56,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 " {{{1 Completion
 " Core completion engine.
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#enable_at_startup = 1
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
 
 " Snippets.
 Plug 'Shougo/neosnippet.vim'
@@ -90,7 +90,7 @@ Plug 'c9s/perlomni.vim'
 " {{{1 Navigation
 
 " Everything explorer.
-Plug 'Shougo/denite.nvim', { 'do': [ ':UpdateRemotePlugins' ] }
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " File explorer.
 Plug 'scrooloose/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeFocus'] } 
@@ -146,10 +146,6 @@ augroup END
 " {{{1 Closing
 
 call plug#end()
-
-" {{{1 Local
-
-set runtimepath+=~/src/denite-nerdfont
 
 " }}}1
 
