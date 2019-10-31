@@ -98,7 +98,7 @@ main() {
             main_restore "$@" || return $?
             ;;
         *)
-            echo "Invalid mode '$1'." >&2
+            echo "Invalid action '$1'." >&2
             return 1
     esac
 }
