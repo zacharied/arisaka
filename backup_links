@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 links_file=$ARISAKA/links
 
 show_help() {
@@ -17,7 +19,7 @@ Backup options:
     -o OUTPUTFILE   Print link information in OUTPUTFILE.
 
 Restore options:
-    (none)
+    -i INPUTFILE    Restore link information from INPUTFILE.
 EOF
 }
 
@@ -30,13 +32,19 @@ backup_links() {
     for link in $(find ~ -path "$ARISAKA" -prune -o -type l -print); do
         realpath=$(realpath "$link")
 
+        # Ignore the arisaka_root link, as that should be manually managed.
+        [[ "$realpath" == "$ARISAKA" ]] && continue
+
         # Ensure link points to an Arisaka file.
         [[ "$realpath" =~ ^$ARISAKA ]] || continue
         
-        if [[ "$realpath" =~ *\t* ]]; then
+        if [[ "$realpath" == *"\t"* ]]; then
             echo "Error with file '$ARISAKA/$realpath': arisaka filenames cannot contain tabs" >&2
             return 1
         fi
+
+        link=$(sed "s,$HOME,~," <<< "$link")
+        realpath=$(sed "s,$HOME,~," <<< "$realpath")
 
         echo "Found '$link' -> '$realpath'."
         echo -e "$link\t$realpath" >> "$links_file"
@@ -67,7 +75,36 @@ main_backup() {
 }
 
 main_restore() {
-    echo "Not yet implemented." >&2
+    local link realpath
+
+    # Parse action options.
+    while getopts 'i:' OPT; do
+        case "$OPT" in
+            o)
+                links_file="$OPTARG"
+                shift
+                ;;
+        esac
+        shift
+    done
+
+    if [[ ! -f "$links_file" ]]; then
+        echo "Links file '$links_file' not found. Aborting." >&2
+        return 1
+    fi
+
+    echo "Reading links from '$links_file'."
+    while read -r line; do
+        link=$(sed "s,~,$HOME," <<< "${line%$'\t'*}")
+        realpath=$(sed "s,~,$HOME," <<< "${line#*$'\t'}")
+
+        echo "Restoring '$link' -> '$realpath'."
+
+        # TODO `setopt verbose` doesn't seem to work as expected.
+        setopt verbose
+        ln -fs "$realpath" "$link"
+        unsetopt verbose
+    done < "$links_file"
     return 1
 }
 
@@ -104,5 +141,3 @@ main() {
 }
 
 main "$@" || exit $?
-
-# vim: ft=sh
