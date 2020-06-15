@@ -21,16 +21,9 @@ Plug 'nightsense/stellarized'
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'
 
-" {{{1 Linters
-
-Plug 'w0rp/ale'
-let g:ale_fix_on_save = 1
-
-let g:ale_linters = {
-    \ 'c': ['gcc']
-\ }
-
 " {{{1 Language
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -55,37 +48,28 @@ Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 
 " {{{1 Completion
-" Core completion engine.
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-
 " Snippets.
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 let g:neosnippet#snippets_directory='$ETC/nvim/snippets'
 
-" Clang.
-Plug 'zchee/deoplete-clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-
-" Vimscript.
-Plug 'Shougo/neco-vim'
-
-" Zsh.
-Plug 'zchee/deoplete-zsh'
-
-" Python.
-Plug 'zchee/deoplete-jedi'
-
-" Rust.
-Plug 'racer-rust/vim-racer'
-
-" Go.
-Plug 'zchee/deoplete-go'
-
-" Perl.
-Plug 'c9s/perlomni.vim'
+"" Vimscript.
+"Plug 'Shougo/neco-vim'
+"
+"" Zsh.
+"Plug 'zchee/deoplete-zsh'
+"
+"" Python.
+"Plug 'zchee/deoplete-jedi'
+"
+"" Rust.
+"Plug 'racer-rust/vim-racer'
+"
+"" Go.
+"Plug 'zchee/deoplete-go'
+"
+"" Perl.
+"Plug 'c9s/perlomni.vim'
 
 " {{{1 Navigation
 

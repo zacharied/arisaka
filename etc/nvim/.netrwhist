@@ -1,6 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/zach/.arisaka/bin/arisaka'
 let g:netrw_dirhist_2='/home/zach/.arisaka/bin/alacritty'
 let g:netrw_dirhist_3='/home/zach/.config/lpass'
 let g:netrw_dirhist_4='/home/zach/src/ari_utils/.git'
+let g:netrw_dirhist_5='/home/zach/src/power_mgmt_infra/src/sunneed/src/protobuf/c'
+let g:netrw_dirhist_6='/home/zach/src/power_mgmt_infra/src/sunneed/src/util'
+let g:netrw_dirhist_7='/home/zach/src/power_mgmt_infra/.git'
