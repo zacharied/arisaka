@@ -1,5 +1,7 @@
 # Arisaka
 
+**This repo is dead. I am using [dotkeep](https://github.com/zacharied/dotkeep) to manage this stuff now.**
+
 ## Startup
 
 The current shell should, in a login-only init file (such as `.zprofile`),
